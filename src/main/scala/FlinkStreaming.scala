@@ -27,7 +27,7 @@ object FlinkStreaming {
       wordCountStream.flatMap(line => line.toUpperCase.split(" "))
                      .map(word => (word, 1))
     val countPair: DataStream[(String, Int)] =
-      wordsStream.keyBy(0).countWindow(5, 1).sum(1)
+      wordsStream.keyBy{ case (key,_) => key }.countWindow(5, 1).sum(1)
     countPair.print
     val executionResult: JobExecutionResult = env.execute("")
   }
