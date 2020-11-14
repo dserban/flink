@@ -62,7 +62,7 @@ object FlinkHeartbeat {
       }
     }
 
-    val heartbeatMessageStream =
+    val heartbeatMessageStream: DataStream[SessionObj] =
       plainMessageStream.map { plainMessage => {
         println(s"Plain Message: $plainMessage")
         val hb = upickle.default.read[Heartbeat](plainMessage)
